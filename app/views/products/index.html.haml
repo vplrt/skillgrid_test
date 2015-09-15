@@ -1,5 +1,3 @@
-%h1 All products
+#products.transitions-enabled
+  = render @products
 
-- @products.each do |product|
-  =link_to (image_tag product.image.url(:medium)), product
-  %h2= link_to product.title, product
