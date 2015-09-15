@@ -1,0 +1,16 @@
+= simple_form_for @product do |f|
+  - if @product.errors.any?
+    #errors
+      %h2
+      = pluralize(@product.errors.count, "error")
+      prevented this Product from saving
+      %ul
+        - @product.errors.full_messages.each do |msg|
+          %li= msg
+
+  .form-group
+    = f.input :title
+  .form-group
+    = f.input :description
+
+  = f.button :submit, class: "btn btn-primary"
