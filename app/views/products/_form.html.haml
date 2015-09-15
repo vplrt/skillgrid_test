@@ -9,8 +9,12 @@
           %li= msg
 
   .form-group
-    = f.input :title
+    = f.input :image, required: true
+
   .form-group
-    = f.input :description
+    = f.input :title, required: true
+
+  .form-group
+    = f.input :description, required: true
 
   = f.button :submit, class: "btn btn-primary"
