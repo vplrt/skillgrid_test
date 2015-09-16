@@ -14,5 +14,7 @@
             = @product.user.name
           .col-md-6
             .btn-group.pull-right
-              = link_to "Edit", edit_product_path, class: "btn btn-default"
-              = link_to "Delete", product_path, method: :delete, data: {confirm: "Are you shure?"}, class: "btn btn-default"
+              - if product_owner?
+                = link_to "Edit", edit_product_path, class: "btn btn-default"
+                = link_to "Delete", product_path, method: :delete,
+                  data: {confirm: "Are you shure?"}, class: "btn btn-default"

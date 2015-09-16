@@ -9,7 +9,7 @@ user = User.new(
 user.save
 
 
-9.times do
+4.times do
   user = User.new(
     name: Faker::Internet.user_name,
     email: Faker::Internet.email,
@@ -23,7 +23,7 @@ end
   product = Product.new(
     title: Faker::Commerce.product_name,
     description: Faker::Lorem.sentence(70),
-    user_id: rand(1..10),
+    user_id: rand(1..5),
   )
   product.save
 end
