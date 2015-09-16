@@ -18,6 +18,8 @@ gem 'simple_form', '~> 3.1.0'
 gem 'devise', '3.4.1'
 gem 'paperclip', '~> 4.3.0'
 gem 'masonry-rails', '~> 0.2.4'
+gem 'will_paginate', '~> 3.0.7'
+gem 'bootstrap-will_paginate', '~> 0.0.10'
 
 group :development, :test do
   gem "faker", "~> 1.4.3"

@@ -3,7 +3,8 @@ class ProductsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
   def index
-    @products = Product.all.includes(:user).order("created_at DESC")
+    @products = Product.all.includes(:user).order("created_at DESC")\
+      .paginate(page: params[:page]).per_page(15)
   end
 
   def new

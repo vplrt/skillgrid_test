@@ -1,3 +1,5 @@
 #products.transitions-enabled
   = render @products
+%div{align: "center"}
+  = will_paginate @products, params: {_: nil}
 
