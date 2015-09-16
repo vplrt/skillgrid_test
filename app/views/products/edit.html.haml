@@ -1,9 +1,12 @@
 .col-md-6.col-md-offset-3
-  %h1 Edit Product
-  %strong.center Current Image
-  %br/
-  = image_tag @product.image.url(:medium)
-
-  = render 'form'
-
-  = link_to "Back", product_path
+  .row
+    .panel.panel-default
+      .panel-heading
+        %h1 Edit product
+      .panel-body
+        %strong.center Current image
+        %br/
+        = image_tag @product.image.url(:medium)
+        %br/
+        = render 'form'
+        = link_to "Back", product_path
