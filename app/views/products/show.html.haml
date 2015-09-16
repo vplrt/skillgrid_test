@@ -1,11 +1,18 @@
-%h1= @product.title
-%p= @product.description
-%p
-  Submitted by
-  = @product.user.email
-
-= image_tag @product.image.url
-%br
-= link_to "Back", root_path
-= link_to "Edit", edit_product_path
-= link_to "Delete", product_path, method: :delete, data: {confirm: "Are you shure?"}
+#product_show.row
+  .col-md-8.col-md-offset-2
+    .panel.panel-default
+      .panel-heading.product_image
+        = image_tag @product.image.url
+      .panel-body
+        %h1= @product.title
+        %p.description= @product.description
+      .panel-footer
+        .row
+          .col-md-6
+            %p.user
+            Submitted by
+            = @product.user.name
+          .col-md-6
+            .btn-group.pull-right
+              = link_to "Edit", edit_product_path, class: "btn btn-default"
+              = link_to "Delete", product_path, method: :delete, data: {confirm: "Are you shure?"}, class: "btn btn-default"
