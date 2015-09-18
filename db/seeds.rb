@@ -20,10 +20,12 @@ seller.save
 end
 
 100.times do
+  rand_val = rand(1..5)
   product = Product.new(
     title: Faker::Commerce.product_name,
     description: Faker::Lorem.sentence(70),
-    seller_id: rand(1..5),
+    seller_id: rand_val,
+    company: Seller.find(rand_val).company
   )
   product.save
 end

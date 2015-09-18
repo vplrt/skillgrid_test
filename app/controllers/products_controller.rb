@@ -1,23 +1,24 @@
 class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_seller!, except: [:index, :show]
   before_action :product_owner, only: [:edit, :update, :destroy]
 
 
   def index
-    @products = Product.all.includes(:user).order("created_at DESC")\
+    @products = Product.all.includes(:seller).order("created_at DESC")\
       .paginate(page: params[:page]).per_page(15)
   end
 
   def new
-    @product = current_user.products.build
+    @product = current_seller.products.build
   end
 
   def show
   end
 
   def create
-    @product = current_user.products.build(product_params)
+    @product = current_seller.products.build(product_params)
+    @product.company = current_seller.company
 
     if @product.save
       redirect_to @product, notice: "The product has been successfully created."
@@ -54,7 +55,7 @@ class ProductsController < ApplicationController
     end
 
     def product_owner
-      unless (@product.user_id == current_user.id)
+      unless (@product.seller_id == current_seller.id)
         flash[:error] = "Only product owner is allowed to perform this action!"
         redirect_to root_path
       end
