@@ -8,15 +8,16 @@
       .panel-body
         %h1= @product.title
         %p.description= @product.description
-      .panel-footer
-        .row
-          .col-md-6
-            %p.user
-            Submitted by
-            = @product.company
-          .col-md-6
-            .btn-group.pull-right
-              - if product_owner?
-                = link_to "Edit", edit_product_path, class: "btn btn-default"
-                = link_to "Delete", product_path, method: :delete,
-                  data: {confirm: "Are you shure?"}, class: "btn btn-default"
+      -if seller_signed_in? || admin_signed_in?
+        .panel-footer
+          .row
+            .col-md-6
+              %p.user
+              Submitted by
+              = @product.company
+            .col-md-6
+              .btn-group.pull-right
+                - if product_owner? || admin_signed_in?
+                  = link_to "Edit", edit_product_path, class: "btn btn-default"
+                  = link_to "Delete", product_path, method: :delete,
+                    data: {confirm: "Are you shure?"}, class: "btn btn-default"
