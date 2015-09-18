@@ -1,10 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Seller, type: :model do
-  before(:each) { @seller = Seller.new(email: 'seller@example.com', password: "secret1234") }
-
-  subject { @seller }
-
   it { should respond_to(:email) }
   it { is_expected.to validate_presence_of :email }
   it { is_expected.to validate_uniqueness_of(:email) }

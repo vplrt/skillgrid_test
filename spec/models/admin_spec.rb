@@ -1,9 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Admin, type: :model do
-  before(:each) { @admin = Admin.new(email: 'admin@example.com', password: "secret1234") }
-
-  subject { @admin }
 
   it { should respond_to(:email) }
   it { is_expected.to validate_presence_of :email }
