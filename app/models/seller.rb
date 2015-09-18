@@ -5,6 +5,12 @@ class Seller < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, password_length: 8..128
 
   has_many :products, dependent: :destroy
+  has_attached_file :avatar, styles: {
+    thumb: '24x24>',
+    square: '200x200#',
+    medium: '300x300>'
+  }
 
-  validates :company, presence: true, uniqueness: true
+  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
+  validates :company, presence: true
 end

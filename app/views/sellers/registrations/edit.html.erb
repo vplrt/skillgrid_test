@@ -11,6 +11,10 @@
           <%= f.error_notification %>
 
           <div class="form-inputs">
+            <div class="center-block jumbotron">
+              <%= image_tag @seller.avatar.url(:medium, false) %>
+            </div>
+            <%= f.input :avatar, label: 'Change avatar' %>
             <%= f.input :company, required: true, autofocus: true %>
             <%= f.input :email, required: true %>
 
