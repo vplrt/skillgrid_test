@@ -8,7 +8,9 @@ Try application:
 * cd skillgrid_test
 * rake db:create && rake db:migrate && rake db:seed
 * rails s
-* Test user email: "1@1.ru", password: "11111111"
+* Test User email: "2@2.ru", password:   "111111"
+* Test Seller email: "1@1.ru", password: "11111111"
+* Test Admin email: "3@3.ru", password:  "1111111111"
 
 Run specs:
 
