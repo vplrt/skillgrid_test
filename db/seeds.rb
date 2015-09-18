@@ -1,5 +1,16 @@
 require "faker"
 
+admin = Admin.new(
+    first_name: "Boris",
+    last_name: "Bush",
+    birthday: DateTime.new(1990,1,2),
+    email: "3@3.ru",
+    password: "1111111111",
+    password_confirmation: "1111111111",
+)
+
+admin.save
+
 seller = Seller.new(
     company: "Apple",
     email: "1@1.ru",

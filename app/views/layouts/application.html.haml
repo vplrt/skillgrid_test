@@ -16,7 +16,7 @@
             %span.icon-bar
           .navbar-brand= link_to "SkillgridTest", root_path
 
-        - if user_signed_in? || seller_signed_in?
+        - if user_signed_in? || seller_signed_in? || admin_signed_in?
           %div.collapse.navbar-collapse#bs-example-navbar-collapse-1
             %ul.nav.navbar-nav.navbar-right
               / %li.disabled= link_to "Signed in as #{current_user.name}", "#"

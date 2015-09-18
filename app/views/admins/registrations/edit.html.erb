@@ -11,8 +11,18 @@
           <%= f.error_notification %>
 
           <div class="form-inputs">
-            <%= f.input :email, required: true, autofocus: true %>
-
+            <%= f.input :first_name, required: true, autofocus: true %>
+            <%= f.input :last_name, required: true %>
+            <%= f.input :email, required: true %>
+            <%= f.input :birthday, required: true, start_year: 1950 %>
+            <%= f.input :avatar, required: true %>
+            <div class="center-block jumbotron">
+              <%= image_tag @admin.avatar.url(:medium, false) %>
+            </div>
+            <%= f.input :passport, required: true %>
+            <div class="center-block jumbotron">
+              <%= image_tag @admin.passport.url(:medium, false) %>
+            </div>
             <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
               <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
             <% end %>
