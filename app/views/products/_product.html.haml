@@ -2,14 +2,9 @@
   = link_to (image_tag product.image.url), product
   .panel-body
     -if product.pro
-      .pro.pull-right
-        Pro
+      .pro.pull-right Pro
     %h2= link_to product.title, product
     - if seller_signed_in? || admin_signed_in?
-      Seller:
-      = product.company
-    - if admin_signed_in? || (current_seller && product.seller_id == current_seller.id)
-      .btn-group.pull-right
-        = link_to "Edit", edit_product_path(product), class: "btn btn-default"
-        = link_to "Delete", product_path(product), method: :delete,
-          data: {confirm: "Are you shure?"}, class: "btn btn-default"
+      %p
+        Seller:
+        = product.company
