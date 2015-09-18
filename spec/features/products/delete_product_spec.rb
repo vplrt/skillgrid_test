@@ -15,7 +15,7 @@ feature "Delete product:" do
   end
 
   scenario "registered seller can delete own product" do
-    signin_seller(@product.seller.email, @product.seller.password)
+    signin(@product.seller.email, @product.seller.password, :seller)
     visit product_path @product
     expect(page).to have_link "Delete"
     expect{
@@ -26,7 +26,7 @@ feature "Delete product:" do
 
   scenario "registered seller cant delete foreign product" do
     seller = create(:seller, email: "other_user@example.com")
-    signin_seller(seller.email, seller.password)
+    signin(seller.email, seller.password, :seller)
     visit product_path @product
     expect(page).to have_no_link "Delete"
     expect{

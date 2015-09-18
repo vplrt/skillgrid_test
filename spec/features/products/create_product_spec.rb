@@ -10,7 +10,7 @@ feature "Create new product" do
 
   scenario "as a registered seller" do
     seller = create(:seller)
-    signin_seller(seller.email, seller.password)
+    signin(seller.email, seller.password, :seller)
     visit new_product_path
     fill_in "Title", with: "Some title"
     fill_in "Description", with: "Some Description"

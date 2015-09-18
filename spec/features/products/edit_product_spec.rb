@@ -13,7 +13,7 @@ feature "Edit product:" do
   end
 
   scenario "registered seller can Eedit own product" do
-    signin_seller(@product.seller.email, @product.seller.password)
+    signin(@product.seller.email, @product.seller.password, :seller)
     visit product_path @product
     click_link "Edit"
     expect(current_path).to eq edit_product_path @product
@@ -26,7 +26,7 @@ feature "Edit product:" do
 
   scenario "registered seller cant Edit foreign product" do
     seller = create(:seller, email: "other_user@example.com")
-    signin_seller(seller.email, seller.password)
+    signin(seller.email, seller.password, :seller)
     visit product_path @product
     expect(page).to have_no_link "Edit"
     visit edit_product_path @product
