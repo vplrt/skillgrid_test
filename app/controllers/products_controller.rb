@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_seller!, except: [:index, :show]
+  before_action :authenticate_seller_or_admin!, except: [:index, :show]
   before_action :product_owner, only: [:edit, :update, :destroy]
 
 
@@ -55,9 +55,14 @@ class ProductsController < ApplicationController
     end
 
     def product_owner
-      unless (@product.seller_id == current_seller.id)
-        flash[:error] = "Only product owner is allowed to perform this action!"
-        redirect_to root_path
+      unless admin_signed_in? || (@product.seller_id == current_seller.id)
+        redirect_to root_path, notice: "Only product owner is allowed to perform this action!"
       end
     end
+
+  def authenticate_seller_or_admin!
+    unless seller_signed_in? || admin_signed_in?
+      redirect_to login_path, notice: "Only seller is allowed to perform this action!"
+    end
+  end
 end
