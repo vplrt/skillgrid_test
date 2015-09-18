@@ -3,6 +3,8 @@
   .panel-body
     -if product.pro
       .pro.pull-right Pro
+    -if current_seller && product.seller_id == current_seller.id
+      .my.pull-right My
     %h2= link_to product.title, product
     - if seller_signed_in? || admin_signed_in?
       %p

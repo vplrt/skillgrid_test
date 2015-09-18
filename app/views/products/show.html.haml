@@ -7,8 +7,9 @@
         = image_tag @product.image.url
       .panel-body
         -if @product.pro
-          .pro.pull-right
-            Pro
+          .pro.pull-right Pro
+        -if product_owner?
+          .my.pull-right My
         %h1= @product.title
         %p.description= @product.description
       -if seller_signed_in? || admin_signed_in?
