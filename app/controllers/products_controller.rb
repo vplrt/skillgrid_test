@@ -5,8 +5,13 @@ class ProductsController < ApplicationController
 
 
   def index
-    @products = Product.all.includes(:seller).order("created_at DESC")\
-      .paginate(page: params[:page]).per_page(15)
+    if can_see_pro?
+      @products = Product.all.includes(:seller).order("created_at DESC")\
+        .paginate(page: params[:page]).per_page(15)
+    else
+      @products = Product.where(pro: false).order("created_at DESC")\
+        .paginate(page: params[:page]).per_page(15)
+    end
   end
 
   def new
@@ -64,9 +69,13 @@ class ProductsController < ApplicationController
       end
     end
 
-  def authenticate_seller_or_admin!
-    unless seller_signed_in? || admin_signed_in?
-      redirect_to login_path, notice: "Only seller is allowed to perform this action!"
+    def authenticate_seller_or_admin!
+      unless seller_signed_in? || admin_signed_in?
+        redirect_to login_path, notice: "Only seller is allowed to perform this action!"
+      end
     end
-  end
+
+    def can_see_pro?
+      admin_signed_in? || seller_signed_in? || user_signed_in?
+    end
 end
