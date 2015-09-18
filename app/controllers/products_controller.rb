@@ -71,7 +71,7 @@ class ProductsController < ApplicationController
 
     def authenticate_seller_or_admin!
       unless seller_signed_in? || admin_signed_in?
-        redirect_to login_path, notice: "Only seller is allowed to perform this action!"
+        redirect_to new_seller_session_path, notice: "Only seller is allowed to perform this action!"
       end
     end
 

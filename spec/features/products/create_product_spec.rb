@@ -5,7 +5,7 @@ feature "Create new product" do
     visit root_path
     expect(page).not_to have_content "Add product"
     visit new_product_path
-    expect(page).to have_content I18n.t 'devise.failure.unauthenticated'
+    expect(page).to have_content "Only seller is allowed to perform this action!"
   end
 
   scenario "as a registered seller" do
