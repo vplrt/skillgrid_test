@@ -5,5 +5,8 @@ FactoryGirl.define do
     sequence(:description)  { |n| "Description of this great product. #{n}." }
     image { fixture_file_upload(Rails.root.join('spec', 'support', 'test.png'), \
       'image/jpg') }
+    factory :pro do
+      pro true
+    end
   end
 end
