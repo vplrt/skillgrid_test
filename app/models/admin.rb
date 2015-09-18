@@ -16,6 +16,9 @@ class Admin < ActiveRecord::Base
 
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
   validates_attachment_content_type :passport, :content_type => /\Aimage\/.*\Z/
+  validates :avatar, presence: true
+  validates :passport, presence: true
+
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :birthday, presence: true
