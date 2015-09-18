@@ -17,4 +17,8 @@
   .form-group
     = f.input :description, required: true
 
+  - if admin_signed_in?
+    .form-group
+      = f.input :pro, as: :boolean, label: "Check this to make it Pro"
+
   = f.button :submit, class: "btn btn-primary"

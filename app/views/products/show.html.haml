@@ -6,6 +6,9 @@
       .panel-heading.product_image
         = image_tag @product.image.url
       .panel-body
+        -if @product.pro
+          .pro.pull-right
+            Pro
         %h1= @product.title
         %p.description= @product.description
       -if seller_signed_in? || admin_signed_in?

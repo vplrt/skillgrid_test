@@ -1,8 +1,11 @@
 .box.panel.panel-default
+  -if product.pro
+    .pro.pull-right
+      Pro
   = link_to (image_tag product.image.url), product
   .panel-body
     %h2= link_to product.title, product
-    -if seller_signed_in? || admin_signed_in?
+    - if seller_signed_in? || admin_signed_in?
       Seller
       = product.company
     - if admin_signed_in? || (current_seller && product.seller_id == current_seller.id)

@@ -47,7 +47,11 @@ class ProductsController < ApplicationController
   private
 
     def product_params
-      params.require(:product).permit(:title, :description, :image)
+      if admin_signed_in?
+        params.require(:product).permit(:title, :description, :image, :pro)
+      else
+        params.require(:product).permit(:title, :description, :image)
+      end
     end
 
     def find_product
