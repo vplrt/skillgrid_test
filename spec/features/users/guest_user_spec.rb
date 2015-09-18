@@ -7,13 +7,13 @@ feature "Guest user:" do
     @user = create(:user)
   end
 
-  scenario "can see Products on products#index page" do
+  scenario "can see Pro products on products#index page" do
     signin(@user.email, @user.password, :user)
     visit root_path
     expect(page).to have_content "Pro"
   end
 
-  scenario "can see Products on products#show page" do
+  scenario "can see Pro products on products#show page" do
     signin(@user.email, @user.password, :user)
     visit products_path @product
     expect(page).to have_content "Pro"
