@@ -11,6 +11,15 @@ admin = Admin.new(
 
 admin.save
 
+user = User.new(
+    email: "2@2.ru",
+    password: "111111",
+    password_confirmation: "111111",
+)
+
+user.save
+
+
 seller = Seller.new(
     company: "Apple",
     email: "1@1.ru",
