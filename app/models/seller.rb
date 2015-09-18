@@ -13,4 +13,5 @@ class Seller < ActiveRecord::Base
 
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
   validates :company, presence: true
+  validates :avatar, presence: true
 end
