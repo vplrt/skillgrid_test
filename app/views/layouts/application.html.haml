@@ -31,31 +31,32 @@
                 %li= link_to "Account", edit_admin_registration_path
               %li= link_to "Sign Out", destroy_user_session_path, method: :delete
         - else
-          %ul.nav.navbar-nav.navbar-right
-            %li#fat-menu.dropdown
-              %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}
-                Sign Up
-                %b.caret
-              %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}
-                %li.dropdown-header Sign Up as:
-                %li.divider{"role"=>"separator"}
-                %li= link_to "User", new_user_registration_path
-                %li.divider{"role"=>"separator"}
-                %li= link_to "Seller", new_seller_registration_path
-                %li.divider{"role"=>"separator"}
-                %li= link_to "Admin", new_admin_registration_path
-            %li#fat-menu.dropdown
-              %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}
-                Sign In
-                %b.caret
-              %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}
-                %li.dropdown-header Sign In as:
-                %li.divider{"role"=>"separator"}
-                %li= link_to "User", new_user_session_path
-                %li.divider{"role"=>"separator"}
-                %li= link_to "Seller", new_seller_session_path
-                %li.divider{"role"=>"separator"}
-                %li= link_to "Admin", new_admin_session_path
+          %div.collapse.navbar-collapse#bs-example-navbar-collapse-1
+            %ul.nav.navbar-nav.navbar-right
+              %li#fat-menu.dropdown
+                %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}
+                  Sign Up
+                  %b.caret
+                %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}
+                  %li.dropdown-header Sign Up as:
+                  %li.divider{"role"=>"separator"}
+                  %li= link_to "User", new_user_registration_path
+                  %li.divider{"role"=>"separator"}
+                  %li= link_to "Seller", new_seller_registration_path
+                  %li.divider{"role"=>"separator"}
+                  %li= link_to "Admin", new_admin_registration_path
+              %li#fat-menu.dropdown
+                %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}
+                  Sign In
+                  %b.caret
+                %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}
+                  %li.dropdown-header Sign In as:
+                  %li.divider{"role"=>"separator"}
+                  %li= link_to "User", new_user_session_path
+                  %li.divider{"role"=>"separator"}
+                  %li= link_to "Seller", new_seller_session_path
+                  %li.divider{"role"=>"separator"}
+                  %li= link_to "Admin", new_admin_session_path
     .container
       - flash.each do |name, msg|
         = content_tag :div, msg, class: "alert alert-info"
