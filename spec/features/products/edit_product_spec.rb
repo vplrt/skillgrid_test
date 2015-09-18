@@ -9,11 +9,11 @@ feature "Edit product:" do
     visit product_path @product
     expect(page).to have_no_link "Edit"
     visit edit_product_path @product
-    expect(current_path).to eq new_user_session_path
+    expect(current_path).to eq new_seller_session_path
   end
 
-  scenario "registered user can Eedit own product" do
-    signin(@product.user.email, @product.user.password)
+  scenario "registered seller can Eedit own product" do
+    signin_seller(@product.seller.email, @product.seller.password)
     visit product_path @product
     click_link "Edit"
     expect(current_path).to eq edit_product_path @product
@@ -24,9 +24,9 @@ feature "Edit product:" do
     expect(page).to have_content "Other title"
   end
 
-  scenario "registered user cant Edit foreign product" do
-    user = create(:user, email: "other_user@example.com")
-    signin(user.email, user.password)
+  scenario "registered seller cant Edit foreign product" do
+    seller = create(:seller, email: "other_user@example.com")
+    signin_seller(seller.email, seller.password)
     visit product_path @product
     expect(page).to have_no_link "Edit"
     visit edit_product_path @product

@@ -8,9 +8,9 @@ feature "Create new product" do
     expect(page).to have_content I18n.t 'devise.failure.unauthenticated'
   end
 
-  scenario "as a registered user" do
-    user = FactoryGirl.create(:user)
-    signin(user.email, user.password)
+  scenario "as a registered seller" do
+    seller = create(:seller)
+    signin_seller(seller.email, seller.password)
     visit new_product_path
     fill_in "Title", with: "Some title"
     fill_in "Description", with: "Some Description"

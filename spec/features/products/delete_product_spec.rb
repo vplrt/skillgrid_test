@@ -11,11 +11,11 @@ feature "Delete product:" do
     expect{
       page.driver.submit :delete, product_path(@product), {}
     }.to change(Product,:count).by(0)
-    expect(current_path).to eq new_user_session_path
+    expect(current_path).to eq new_seller_session_path
   end
 
-  scenario "registered user can delete own product" do
-    signin(@product.user.email, @product.user.password)
+  scenario "registered seller can delete own product" do
+    signin_seller(@product.seller.email, @product.seller.password)
     visit product_path @product
     expect(page).to have_link "Delete"
     expect{
@@ -24,9 +24,9 @@ feature "Delete product:" do
     expect(current_path).to eq root_path
   end
 
-  scenario "registered user cant delete foreign product" do
-    user = create(:user, email: "other_user@example.com")
-    signin(user.email, user.password)
+  scenario "registered seller cant delete foreign product" do
+    seller = create(:seller, email: "other_user@example.com")
+    signin_seller(seller.email, seller.password)
     visit product_path @product
     expect(page).to have_no_link "Delete"
     expect{

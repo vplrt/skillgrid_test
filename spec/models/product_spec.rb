@@ -13,6 +13,6 @@ describe Product do
               allowing('image/png', 'image/gif', 'image/jpeg').
               rejecting('text/plain', 'text/xml', 'some_image/png') }
 
-  it { should belong_to :user }
+  it { should belong_to :seller }
 
 end
