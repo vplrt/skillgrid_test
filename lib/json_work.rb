@@ -52,11 +52,16 @@ module JsonWork
   end
 
 
-# begin
-# a = JsonPlaceHolder.new(2)
-# puts a.get_thumbnail_url
-# puts a.to_s
-# rescue => e
-#   puts "#{e.class}: #{e.message}"
-# end
+  def self.post_request
+    begin
+      uri = URI("http://jsonplaceholder.typicode.com/todos")
+      http = Net::HTTP.new(uri.host, uri.port)
+      request = Net::HTTP::Post.new(uri.path)
+      response = http.request(request)
+      data_hash = JSON.parse(response.body)
+      data_hash['id']
+    rescue => e
+      nil
+    end
+  end
 end

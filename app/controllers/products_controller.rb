@@ -59,7 +59,8 @@ class ProductsController < ApplicationController
         purchase = JsonPlaceHolder.new(rand(1..5000))
         if purchase.right_color?
           photo = purchase.get_url
-          redirect_to root_path, notice: "Thank you for your purchase #{photo}!"
+          id = JsonWork.post_request
+          redirect_to root_path, notice: "Thank you for your purchase #{photo} #{id}"
         else
           redirect_to :back, notice: "Error. thumbnailUrl is greater than url."
         end
