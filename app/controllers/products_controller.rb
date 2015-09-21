@@ -1,9 +1,10 @@
 class ProductsController < ApplicationController
+  include JsonWork
+
   before_action :find_product, only: [:show, :edit, :update, :destroy, :buy]
   before_action :authenticate_seller_or_admin!, except: [:index, :show, :buy]
   before_action :product_owner, only: [:edit, :update, :destroy]
   before_action :authenticate_user!, only: [:buy]
-
 
   def index
     if can_see_pro?
@@ -54,7 +55,17 @@ class ProductsController < ApplicationController
     if current_user.has_bad_email?
       redirect_to :back, notice: "Users with .com emails cant buy products!"
     elsif @product.can_be_sold?
-      redirect_to root_path, notice: "Thank you for your purchase!"
+      begin
+        purchase = JsonPlaceHolder.new(rand(1..5000))
+        if purchase.right_color?
+          photo = purchase.get_url
+          redirect_to root_path, notice: "Thank you for your purchase #{photo}!"
+        else
+          redirect_to :back, notice: "Error. thumbnailUrl is greater than url."
+        end
+      rescue => e
+        redirect_to :back, notice: "Cant get this product!"
+      end
     else
       redirect_to :back, notice: "Sorry, but you cant buy this product!"
     end
