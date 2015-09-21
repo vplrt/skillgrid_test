@@ -6,4 +6,8 @@ class Product < ActiveRecord::Base
 
   validates :title, presence: true
   validates :description, presence: true
+
+  def can_be_sold?
+    self.pro == false && self.company
+  end
 end

@@ -12,16 +12,18 @@
           .my.pull-right My
         %h1= @product.title
         %p.description= @product.description
-      -if seller_signed_in? || admin_signed_in?
-        .panel-footer
-          .row
-            .col-md-6
+      .panel-footer
+        .row
+          .col-md-6
+            -if seller_signed_in? || admin_signed_in?
               %p.user
               Seller:
               = @product.company
-            .col-md-6
-              .btn-group.pull-right
-                - if product_owner? || admin_signed_in?
-                  = link_to "Edit", edit_product_path, class: "btn btn-default"
-                  = link_to "Delete", product_path, method: :delete,
-                    data: {confirm: "Are you shure?"}, class: "btn btn-default"
+          .col-md-6
+            .btn-group.pull-right
+              - if product_owner? || admin_signed_in?
+                = link_to "Edit", edit_product_path, class: "btn btn-default"
+                = link_to "Delete", product_path, method: :delete,
+                  data: {confirm: "Are you shure?"}, class: "btn btn-default"
+              - elsif user_signed_in? && @product.can_be_sold?
+                = link_to "Buy", buy_product_path, class: "btn  btn-primary btn-lg"

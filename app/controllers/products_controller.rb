@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
-  before_action :find_product, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_seller_or_admin!, except: [:index, :show]
+  before_action :find_product, only: [:show, :edit, :update, :destroy, :buy]
+  before_action :authenticate_seller_or_admin!, except: [:index, :show, :buy]
   before_action :product_owner, only: [:edit, :update, :destroy]
 
 
@@ -49,6 +49,14 @@ class ProductsController < ApplicationController
     redirect_to root_path, notice: "The product has been deleted!"
   end
 
+  def buy
+    if user_signed_in? && @product.can_be_sold?
+      redirect_to root_path, notice: "Thank you for your order!"
+    else
+      redirect_to :back, notice: "Sorry, but you cant buy this product!"
+    end
+  end
+
   private
 
     def product_params
@@ -77,5 +85,9 @@ class ProductsController < ApplicationController
 
     def can_see_pro?
       admin_signed_in? || seller_signed_in? || user_signed_in?
+    end
+
+    def bad_email
+
     end
 end
