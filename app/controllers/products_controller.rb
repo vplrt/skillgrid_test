@@ -2,6 +2,7 @@ class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :update, :destroy, :buy]
   before_action :authenticate_seller_or_admin!, except: [:index, :show, :buy]
   before_action :product_owner, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:buy]
 
 
   def index
@@ -50,8 +51,10 @@ class ProductsController < ApplicationController
   end
 
   def buy
-    if user_signed_in? && @product.can_be_sold?
-      redirect_to root_path, notice: "Thank you for your order!"
+    if current_user.has_bad_email?
+      redirect_to :back, notice: "Users with .com emails cant buy products!"
+    elsif @product.can_be_sold?
+      redirect_to root_path, notice: "Thank you for your purchase!"
     else
       redirect_to :back, notice: "Sorry, but you cant buy this product!"
     end

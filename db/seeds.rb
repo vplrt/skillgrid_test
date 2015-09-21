@@ -25,6 +25,16 @@ user.save
 
 puts "Created user with id=#{user.id}"
 
+user = User.new(
+    email: "2@2.com",
+    password: "111111",
+    password_confirmation: "111111"
+)
+
+user.save
+
+puts "Created user with id=#{user.id}"
+
 seller = Seller.new(
     company: "Apple",
     email: "1@1.ru",
