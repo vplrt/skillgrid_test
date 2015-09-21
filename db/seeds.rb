@@ -54,8 +54,12 @@ end
     title: Faker::Commerce.product_name,
     description: Faker::Lorem.sentence(70),
     seller_id: rand_val,
-    company: Seller.find(rand_val).company,
+    # 1/4 of the products have no company name
+    company: (rand(1..4) == 1 ? nil : Seller.find(rand_val).company),
     pro: [true, false].sample
   )
   product.save
 end
+
+
+
