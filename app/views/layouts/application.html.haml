@@ -58,7 +58,7 @@
                   %li.divider{"role"=>"separator"}
                   %li= link_to "Admin", new_admin_session_path
     .container
-      - flash.each do |name, msg|
-        = content_tag :div, msg, class: "alert alert-info"
+      - flash.each do |key, msg|
+        = content_tag :div, msg, class: "alert #{bootstrap_class_for(key)}"
 
       = yield

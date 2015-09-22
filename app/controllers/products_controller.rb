@@ -53,25 +53,30 @@ class ProductsController < ApplicationController
 
   def buy
     if current_user.has_bad_email?
-      redirect_to :back, notice: "Users with .com emails cant buy products!"
+      flash[:error] = 'Users with .com emails cant buy products!'
+      redirect_to :back
     elsif @product.can_be_sold?
       begin
         purchase = JsonPlaceHolder.new(rand(1..5000))
         if purchase.right_color?
-          purchase_photo = purchase.get_url
-          id = JsonWork.post_request
-          OrderMailer.purchase_email(current_user, purchase_photo).deliver_now
-          Admin.find_each {|admin| OrderMailer.notify_admin_email(admin, id).deliver_now}
-          redirect_to root_path, notice: "Thank you for your purchase."
+          # purchase_photo = purchase.get_url
+          # id = JsonWork.post_request
+          # OrderMailer.purchase_email(current_user, purchase_photo).deliver_now
+          # Admin.find_each {|admin| OrderMailer.notify_admin_email(admin, id).deliver_now}
+          flash[:success] = 'Thank you for your purchase. It will be delivered to your email.'
+          redirect_to root_path
         else
           Admin.find_each {|admin| OrderMailer.purchase_error_email(admin, purchase.to_s).deliver_now}
-          redirect_to :back, notice: "Error. thumbnailUrl is greater than url."
+          flash[:error] = 'Error. thumbnailUrl is greater than url.'
+          redirect_to :back
         end
       rescue => e
-        redirect_to :back, notice: "Cant get this product!"
+        flash[:error] = 'Cant get this product now. Please try later.'
+        redirect_to :back
       end
     else
-      redirect_to :back, notice: "Sorry, but you cant buy this product!"
+      flash[:error] = 'Sorry, but you cant buy this product!'
+      redirect_to :back
     end
   end
 
@@ -103,9 +108,5 @@ class ProductsController < ApplicationController
 
     def can_see_pro?
       admin_signed_in? || seller_signed_in? || user_signed_in?
-    end
-
-    def bad_email
-
     end
 end
