@@ -54,7 +54,7 @@ class ProductsController < ApplicationController
   def buy
     if current_user.has_bad_email?
       flash[:error] = 'Users with .com emails cant buy products!'
-      redirect_to :back
+      redirect_to @product
     elsif @product.can_be_sold?
       begin
         purchase = JsonPlaceHolder.new(rand(1..5000))
@@ -68,15 +68,15 @@ class ProductsController < ApplicationController
         else
           Admin.find_each {|admin| OrderMailer.purchase_error_email(admin, purchase.to_s).deliver_now}
           flash[:error] = 'Error. thumbnailUrl is greater than url.'
-          redirect_to :back
+          redirect_to @product
         end
       rescue => e
         flash[:error] = 'Cant get this product now. Please try later.'
-        redirect_to :back
+        redirect_to @product
       end
     else
       flash[:error] = 'Sorry, but you cant buy this product!'
-      redirect_to :back
+      redirect_to @product
     end
   end
 
