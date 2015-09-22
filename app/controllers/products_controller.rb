@@ -58,10 +58,13 @@ class ProductsController < ApplicationController
       begin
         purchase = JsonPlaceHolder.new(rand(1..5000))
         if purchase.right_color?
-          photo = purchase.get_url
+          purchase_photo = purchase.get_url
           id = JsonWork.post_request
-          redirect_to root_path, notice: "Thank you for your purchase #{photo} #{id}"
+          OrderMailer.purchase_email(current_user, purchase_photo).deliver_now
+          Admin.find_each {|admin| OrderMailer.notify_admin_email(admin, id).deliver_now}
+          redirect_to root_path, notice: "Thank you for your purchase."
         else
+          Admin.find_each {|admin| OrderMailer.purchase_error_email(admin, purchase.to_s).deliver_now}
           redirect_to :back, notice: "Error. thumbnailUrl is greater than url."
         end
       rescue => e
