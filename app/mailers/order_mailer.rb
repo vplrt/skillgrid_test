@@ -7,6 +7,7 @@ class OrderMailer < ApplicationMailer
   end
 
   def purchase_error_email(admin, message)
+    @admin = admin
     @message = message
     mail(to: @admin.email, subject: 'Purchase error.')
   end

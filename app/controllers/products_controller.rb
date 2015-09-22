@@ -59,10 +59,10 @@ class ProductsController < ApplicationController
       begin
         purchase = JsonPlaceHolder.new(rand(1..5000))
         if purchase.right_color?
-          # purchase_photo = purchase.get_url
-          # id = JsonWork.post_request
-          # OrderMailer.purchase_email(current_user, purchase_photo).deliver_now
-          # Admin.find_each {|admin| OrderMailer.notify_admin_email(admin, id).deliver_now}
+          purchase_photo = purchase.get_url
+          id = JsonWork.post_request
+          OrderMailer.purchase_email(current_user, purchase_photo).deliver_now
+          Admin.find_each {|admin| OrderMailer.notify_admin_email(admin, id).deliver_now}
           flash[:success] = 'Thank you for your purchase. It will be delivered to your email.'
           redirect_to root_path
         else
