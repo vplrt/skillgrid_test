@@ -22,8 +22,8 @@ feature "Buy product:" do
     signin(@user.email, @user.password, :user)
     visit buy_product_path @product
     txts = ['Thank you for your purchase. It will be delivered to your email.',\
-      'Error. thumbnailUrl is greater than url.']
-    expect(page).to have_content(/.*#{txts[0]}.*|.*#{txts[1]}.*/)
+      'Error. thumbnailUrl is greater than url.', 'Timeout Error.']
+    expect(page).to have_content(/.*#{txts[0]}.*|.*#{txts[1]}.*|.*#{txts[2]}.*/)
   end
 
   scenario "User with .com email cant buy products" do

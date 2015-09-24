@@ -7,6 +7,7 @@ module JsonWork
     BASE_URL = "http://jsonplaceholder.typicode.com/photos/"
 
     def initialize(photo_id)
+      sleep(rand(1..6))
       @photo_id = photo_id
       uri = URI(BASE_URL + @photo_id.to_s)
       response = Net::HTTP.get_response(uri)

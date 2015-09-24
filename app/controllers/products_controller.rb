@@ -57,7 +57,7 @@ class ProductsController < ApplicationController
       redirect_to @product
     elsif @product.can_be_sold?
       begin
-        purchase = JsonPlaceHolder.new(rand(1..5000))
+        purchase = Timeout::timeout(3) {  JsonPlaceHolder.new(rand(1..5000)) }
         if purchase.right_color?
           purchase_photo = purchase.get_url
           id = JsonWork.post_request
@@ -70,7 +70,10 @@ class ProductsController < ApplicationController
           flash[:error] = 'Error. thumbnailUrl is greater than url.'
           redirect_to @product
         end
-      rescue => e
+      rescue Timeout::Error
+        flash[:error] = 'Timeout Error.'
+        redirect_to @product
+      rescue
         flash[:error] = 'Cant get this product now. Please try later.'
         redirect_to @product
       end
