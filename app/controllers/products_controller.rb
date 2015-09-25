@@ -60,7 +60,12 @@ class ProductsController < ApplicationController
         purchase = Timeout::timeout(3) {  JsonPlaceHolder.new(rand(1..5000)) }
         if purchase.right_color?
           purchase_photo = purchase.get_url
-          id = JsonWork.post_request
+          begin
+            id = JsonWork.post_request_with_timeout
+          rescue Timeout::Error
+            Admin.find_each {|admin| OrderMailer.purchase_error_email(admin, "Timeout Error.").deliver_now}
+            id = "Timeout Error."
+          end
           OrderMailer.purchase_email(current_user, purchase_photo).deliver_now
           Admin.find_each {|admin| OrderMailer.notify_admin_email(admin, id).deliver_now}
           flash[:success] = 'Thank you for your purchase. It will be delivered to your email.'
@@ -73,8 +78,8 @@ class ProductsController < ApplicationController
       rescue Timeout::Error
         flash[:error] = 'Timeout Error.'
         redirect_to @product
-      rescue
-        flash[:error] = 'Cant get this product now. Please try later.'
+      rescue Exception => e
+        flash[:error] = 'Cant get this product now. Please try later.' + e.message
         redirect_to @product
       end
     else

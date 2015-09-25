@@ -61,8 +61,27 @@ module JsonWork
       response = http.request(request)
       data_hash = JSON.parse(response.body)
       data_hash['id']
-    rescue => e
+    rescue
       nil
     end
   end
+
+  def self.post_request_with_timeout
+    tries = 3
+    id = nil
+    while tries > 0
+      Timeout::timeout(3) do
+        begin
+          sleep(rand(1..6))
+          id = post_request
+        rescue Timeout::Error
+          id = nil
+          tries = tries - 1
+          raise Timeout::Error if tries <= 1
+        end
+      end
+      return id if id
+    end
+  end
+
 end
